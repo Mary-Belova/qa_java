@@ -54,10 +54,16 @@ public class LionTest {
         new Lion("Неправильный пол", felineMock); // Проверяем, что будет выброшено исключение
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void testGetFoodThrowsException() throws Exception {
         when(felineMock.getFood("Хищник")).thenThrow(new Exception("Ошибка при получении еды"));
 
-        lionMale.getFood(); // Ожидаем, что здесь будет выброшено исключение
+        // Проверка исключения и его сообщения
+        Exception exception = assertThrows(Exception.class, () -> {
+            lionMale.getFood(); // Ожидаем, что здесь будет выброшено исключение
+        });
+
+        assertEquals("Ошибка при получении еды", exception.getMessage()); // Проверяем текст сообщения об ошибке
+        verify(felineMock, times(1)).getFood("Хищник"); // Проверяем, что метод getFood был вызван один раз
     }
 }
