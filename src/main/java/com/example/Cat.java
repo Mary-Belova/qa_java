@@ -4,10 +4,10 @@ import java.util.List;
 
 public class Cat {
 
-    Predator predator;
+    private final Predator predator; // Зависимость от интерфейса Predator
 
-    public Cat(Feline feline) {
-        this.predator = feline;
+    public Cat(Predator predator) {
+        this.predator = predator; // Теперь мы принимаем любой объект, который является Predator
     }
 
     public String getSound() {
@@ -17,5 +17,4 @@ public class Cat {
     public List<String> getFood() throws Exception {
         return predator.eatMeat();
     }
-
 }
